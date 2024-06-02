@@ -48,14 +48,14 @@ int av_reduce(int *dst_num, int *dst_den,
         den = 0;
     }
 
-    while (den) {
+    while (den) { // 连分数
         uint64_t x        = num / den;
         int64_t next_den  = num - den * x;
         int64_t a2n       = x * a1.num + a0.num;
         int64_t a2d       = x * a1.den + a0.den;
 
         if (a2n > max || a2d > max) {
-            if (a1.num) x =          (max - a0.num) / a1.num;
+            if (a1.num) x =          (max - a0.num) / a1.num; // TODO: 感觉是些误差分析的结果
             if (a1.den) x = FFMIN(x, (max - a0.den) / a1.den);
 
             if (den * (2 * x * a1.den + a0.den) > num * a1.den)
